@@ -2,9 +2,9 @@ sbtPlugin := true
 
 name := "sbt-dependency-graph"
 
-organization := "net.virtual-void"
+organization := "com.seal"
 
-version := "0.8.3-SNAPSHOT"
+version := "0.8.3.1"
 
 homepage := Some(url("http://github.com/jrudolph/sbt-dependency-graph"))
 

@@ -27,6 +27,7 @@ import org.apache.ivy.core.resolve.ResolveOptions
 
 import net.virtualvoid.sbt.graph.backend.{ IvyReport, SbtUpdateReport }
 import net.virtualvoid.sbt.graph.rendering.DagreHTML
+import net.virtualvoid.sbt.graph.rendering.LicenseInfoHTML
 import net.virtualvoid.sbt.graph.util.IOUtil
 
 object DependencyGraphSettings {
@@ -101,7 +102,10 @@ object DependencyGraphSettings {
         streams.log.info(rendering.AsciiTree.asciiTree(GraphTransformations.reverseGraphStartingAt(graph, module)))
       }
     },
-    licenseInfo <<= (moduleGraph, streams) map showLicenseInfo))
+    licenseInfo <<= (moduleGraph, streams) map showLicenseInfo,
+    licenceInfoHtmlFile <<= target / "license-info-%s.html".format(config.toString),
+    licenceInfoHtmlExcludeOrgs := Set[String](),
+    licenceInfoHtml <<= (moduleGraph in Compile, licenceInfoHtmlFile, licenceInfoHtmlExcludeOrgs, streams) map LicenseInfoHTML.saveLicenseInfoHtml))
 
   def ivyReportFunctionTask =
     (sbtVersion, target, projectID, ivyModule, appConfiguration, streams) map { (sbtV, target, projectID, ivyModule, config, streams) ⇒
