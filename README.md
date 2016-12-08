@@ -2,6 +2,13 @@
 
 Visualize your project's dependencies.
 
+## Seal publish instructions
+Publishing sbt plugins to a nexus repo (maven style repo) is weird.
+
+- Run `sbt publishLocal`
+- Manually upload artifact from pom using nexus web ui
+- A symlink should exist for `sbt-dependency-graph_2.10_0.13` -> `sbt-dependency-graph` on the nexus filesystem
+
 ## Preliminaries
 
 The plugin works best with sbt >= 0.13.6. See the [compatibility notes](#compatibility-notes) to use this plugin with an older version of sbt.
@@ -29,6 +36,7 @@ This plugin is an auto-plugin which will be automatically enabled starting from 
  * `whatDependsOn <organization> <module> <revision>`: Find out what depends on an artifact. Shows a reverse dependency
    tree for the selected module.
  * `dependencyLicenseInfo`: show dependencies grouped by declared license
+ * `dependencyLicenseInfoHtml`: Generates an HTML with dependencies grouped by declared license
  * `dependencyStats`: Shows a table with each module a row with (transitive) Jar sizes and number of dependencies
  * `dependencyGraphMl`: Generates a `.graphml` file with the project's dependencies to `target/dependencies-<config>.graphml`.
    Use e.g. [yEd](http://www.yworks.com/en/products_yed_about.html) to format the graph to your needs.
@@ -51,6 +59,8 @@ assumed as usual.
  * `dependencyDotHeader`: a setting to customize the header of the dot file (e.g. to set your preferred node shapes).
  * `dependencyDotNodeLabel`: defines the format of a node label
    (default set to `[organisation]<BR/><B>[name]</B><BR/>[version]`)
+ * `dependencyLicenseInfoHtmlFile`: output file for dependencyLicenseInfoHtml
+ * `dependencyLicenseInfoHtmlExcludedOrgs`: organizations to exclude from dependencyLicenseInfoHtml
 
 E.g. in `build.sbt` you can change configuration settings like this:
 
