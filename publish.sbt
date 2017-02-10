@@ -1,7 +1,12 @@
+/* Seal notes:
+ *   Releases are published manually by doing `sbt publishLocal`
+ *   and then uploading the artifact jar using the generated pom file for metadata
+ *
+ */
 publishTo <<= version { v: String =>
-  val nexus = "https://oss.sonatype.org/"
+  val nexus = "https://nexus.seal-software.net/"
   if (v.trim.endsWith("SNAPSHOT")) Some("snapshots" at nexus + "content/repositories/snapshots")
-  else                             Some("releases" at nexus + "service/local/staging/deploy/maven2")
+  else                             Some("releases" at nexus + "content/repositories/releases")
 }
 
 publishMavenStyle := true
