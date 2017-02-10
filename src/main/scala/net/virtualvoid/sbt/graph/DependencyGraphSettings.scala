@@ -18,16 +18,11 @@ package net.virtualvoid.sbt.graph
 
 import sbt._
 import Keys._
-
 import CrossVersion._
-
 import sbt.complete.Parser
-
 import org.apache.ivy.core.resolve.ResolveOptions
-
 import net.virtualvoid.sbt.graph.backend.{ IvyReport, SbtUpdateReport }
-import net.virtualvoid.sbt.graph.rendering.DagreHTML
-import net.virtualvoid.sbt.graph.rendering.LicenseInfoHTML
+import net.virtualvoid.sbt.graph.rendering.{ DagreHTML, LicenseInfoCSV, LicenseInfoHTML }
 import net.virtualvoid.sbt.graph.util.IOUtil
 
 object DependencyGraphSettings {
@@ -105,7 +100,11 @@ object DependencyGraphSettings {
     licenseInfo <<= (moduleGraph, streams) map showLicenseInfo,
     licenceInfoHtmlFile <<= target / "license-info-%s.html".format(config.toString),
     licenceInfoHtmlExcludeOrgs := Set[String](),
-    licenceInfoHtml <<= (moduleGraph in Compile, licenceInfoHtmlFile, licenceInfoHtmlExcludeOrgs, streams) map LicenseInfoHTML.saveLicenseInfoHtml))
+    licenceInfoHtml <<= (moduleGraph in Compile, licenceInfoHtmlFile, licenceInfoHtmlExcludeOrgs, streams) map LicenseInfoHTML.saveLicenseInfoHtml,
+
+    licenceInfoCsvFile <<= target / "license-info-%s.csv".format(config.toString),
+    licenceInfoCsvExcludeOrgs := Set[String](),
+    licenceInfoCsv <<= (moduleGraph in Compile, licenceInfoCsvFile, licenceInfoCsvExcludeOrgs, streams) map LicenseInfoCSV.saveLicenseInfoCsv))
 
   def ivyReportFunctionTask =
     (sbtVersion, target, projectID, ivyModule, appConfiguration, streams) map { (sbtV, target, projectID, ivyModule, config, streams) ⇒

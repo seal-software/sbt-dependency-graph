@@ -16,6 +16,8 @@ libraryDependencies <+= scalaVersion { version =>
   else "org.specs2" %% "specs2" % "2.3.11" % "test"
 }
 
+libraryDependencies += "com.github.tototoshi" %% "scala-csv" % "1.3.4"
+
 scalacOptions ++= Seq("-deprecation", "-unchecked")
 
 sbt.CrossBuilding.latestCompatibleVersionMapper ~= {

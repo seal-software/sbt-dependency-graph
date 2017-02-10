@@ -4,7 +4,7 @@ name := "sbt-dependency-graph"
 
 organization := "com.seal"
 
-version := "0.8.3.1"
+version := "0.8.3.2"
 
 homepage := Some(url("http://github.com/jrudolph/sbt-dependency-graph"))
 

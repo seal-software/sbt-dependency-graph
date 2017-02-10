@@ -68,12 +68,19 @@ trait DependencyGraphKeys {
   val licenseInfo = TaskKey[Unit]("dependency-license-info",
     "Aggregates and shows information about the licenses of dependencies")
 
-  val licenceInfoHtmlFile = SettingKey[File]("dependency-license-info-html-file",
+  val licenceInfoHtml = TaskKey[Unit]("dependency-license-info-html",
     "Aggregates information about the licenses of dependencies as an HTML file")
+  val licenceInfoHtmlFile = SettingKey[File]("dependency-license-info-html-file",
+    "The location the license HTML file should be generated at")
   val licenceInfoHtmlExcludeOrgs = SettingKey[Set[String]]("dependency-license-info-html-exclude-orgs",
     "Aggregates information about the licenses of dependencies as an HTML file")
-  val licenceInfoHtml = TaskKey[Unit]("dependency-license-info-html",
-    "The location the license HTML file should be generated at")
+
+  val licenceInfoCsv = TaskKey[Unit]("dependency-license-info-csv",
+    "Aggregates information about the licenses of dependencies as a CSV file")
+  val licenceInfoCsvFile = SettingKey[File]("dependency-license-info-csv-file",
+    "The location the license CSV file should be generated at")
+  val licenceInfoCsvExcludeOrgs = SettingKey[Set[String]]("dependency-license-info-csv-exclude-orgs",
+    "Aggregates information about the licenses of dependencies as an CSV file")
 
   // internal
   private[graph] val moduleGraphStore = TaskKey[ModuleGraph]("module-graph-store", "The stored module-graph from the last run")
